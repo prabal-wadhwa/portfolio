@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prabal Wadhwa | React & React Native Developer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Load EmailJS -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+
+    <script type="text/javascript">
+      (function () {
+        emailjs.init("ftmbtlFZ4wOUSG39S"); // Public key
+      })();
+
+      function sendMail() {
+        const button = document.getElementById("send-button");
+        const originalText = button.innerHTML;
+
+        button.innerHTML = "Sending...";
+        button.disabled = true;
+
+        const params = {
+          name: document.getElementById("name").value,
+          title: document.getElementById("title").value,
+          email: document.getElementById("email").value,
+          message: document.getElementById("message").value,
+        };
+
+        emailjs.send("service_2a7jixl", "template_ps82jt3", params).then(
+          function (response) {
+            alert("Email sent successfully!");
+            button.innerHTML = "Message Sent ✔";
+            setTimeout(() => {
+              button.innerHTML = originalText;
+              button.disabled = false;
+              document.getElementById("contact-form").reset();
+            }, 2500);
+          },
+          function (error) {
+            alert("Failed to send email. Please try again.");
+            console.error("FAILED...", error);
+            button.innerHTML = originalText;
+            button.disabled = false;
+          }
+        );
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="hero">
+      <div class="hero-icons">
+        <div class="blur-circle"></div>
+        <img src="icons/react.svg" alt="React" class="rotating-icon" />
+        <img src="icons/github.svg" alt="GitHub" class="rotating-icon" />
+        <img
+          src="icons/reactNative.svg"
+          alt="React Native"
+          class="rotating-icon"
+        />
+        <img src="icons/html.svg" alt="HTML" class="rotating-icon" />
+        <img src="icons/css.svg" alt="CSS" class="rotating-icon" />
+        <img src="icons/c.svg" alt="C" class="rotating-icon" />
+      </div>
+      <h1 class="hero-title">Prabal Wadhwa</h1>
+      <p class="hero-subtitle">React JS & React Native Developer</p>
+      <a href="#about" class="scroll-down">↓</a>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2>About Me</h2>
+        <p>
+          I'm a passionate and self-driven Frontend Developer currently working
+          at <strong>Syncglob Pvt Ltd</strong> in
+          <strong>Shri Ganganagar, Rajasthan</strong>. I joined the company in
+          <strong>November 2024</strong> and have been actively contributing to
+          real-world web and mobile applications using modern technologies like
+          <strong>React.js</strong> and <strong>React Native</strong>.
+        </p>
+        <p>
+          Alongside my professional journey, I am pursuing a
+          <strong>Bachelor of Computer Applications (BCA)</strong> from
+          <strong>Maharaja Ganga Singh University (MGSU)</strong>. Balancing
+          education and industry work has sharpened my practical knowledge, and
+          I'm always keen to learn and grow as a developer.
+        </p>
+        <p>
+          My strengths lie in building responsive UI, clean code, and solving
+          frontend challenges. I'm excited to take on bigger roles and
+          collaborative projects in the near future.
+        </p>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <h2>Skills</h2>
+      <ul class="skills-list">
+        <li>React JS</li>
+        <li>React Native</li>
+        <li>Redux</li>
+        <li>JavaScript (ES6+)</li>
+        <li>TypeScript</li>
+        <li>React Hook Form</li>
+        <li>UI/UX Design</li>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Github</li>
+      </ul>
+    </section>
+
+    <section id="projects" class="section">
+      <h2 class="section-title">Projects</h2>
+      <div class="project-card">
+        <div class="project-image">
+          <img src="projects/healthBuddy.png" alt="Uncurl Health Project" />
+        </div>
+        <div class="project-content">
+          <h3 class="project-heading-health">Uncurl Health</h3>
+          <p>
+            Uncurl: health is a one-of-a-kind health application that takes a
+            holistic approach to your well-being. It evaluates your health based
+            on self-reported symptoms, hospital records, test reports, and
+            medications. Additionally, it considers genetic risks and lifestyle
+            choices such as diet, exercise, and habits.
+          </p>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.livingscopehealth.uncurl&pcampaignid=web_share"
+            class="visit-btn-health"
+            >Check Now</a
+          >
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-image">
+          <img src="projects/myBildr.png" alt="MyBildR" />
+        </div>
+        <div class="project-content">
+          <h3 class="project-heading-myBildR">MyBildR</h3>
+          <p>
+            myBildR is a human resource management platform that helps manage
+            multiple projects by streamlining workforce allocation, attendance,
+            and real-time project tracking for construction and infrastructure
+            teams.
+          </p>
+          <a href="https://mybildr.com/#/auth/login" class="visit-btn-myBildR"
+            >Check Now</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Contact Me</h2>
+      <p>
+        If you'd like to connect, have questions, or want to work together, feel
+        free to send a message.
+      </p>
+      <form id="contact-form" action="javascript:void(0);">
+        <input
+          type="text"
+          id="title"
+          name="title"
+          placeholder="Subject"
+          required
+        />
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Your Name"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Your Email"
+          required
+        />
+        <textarea
+          name="message"
+          id="message"
+          placeholder="Your Message"
+          required
+        ></textarea>
+        <button type="submit" id="send-button" onclick="sendMail()">
+          Send Message
+        </button>
+      </form>
+
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      />
+
+      <div class="social-links">
+        <h3>Let's Connect</h3>
+        <ul>
+          <li>
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:prabalwadhwa001@gmail.com"
+              >prabalwadhwa001@gmail.com</a
+            >
+          </li>
+          <li>
+            <i class="fab fa-github"></i>
+            <a
+              href="https://github.com/prabal-wadhwa"
+              target="_blank"
+              rel="noopener"
+              >prabal-wadhwa</a
+            >
+          </li>
+          <li>
+            <i class="fab fa-linkedin"></i>
+            <a
+              href="https://linkedin.com/in/prabal-wadhwa"
+              target="_blank"
+              rel="noopener"
+              >prabal-wadhwa</a
+            >
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Prabal Wadhwa. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
