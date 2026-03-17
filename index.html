@@ -5,28 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Prabal Wadhwa | React & React Native Developer</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
     <link rel="stylesheet" href="styles.css" />
 
+    <!-- Load EmailJS -->
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
     ></script>
+
     <script type="text/javascript">
       (function () {
-        emailjs.init("ftmbtlFZ4wOUSG39S");
+        emailjs.init("ftmbtlFZ4wOUSG39S"); // Public key
       })();
 
       function sendMail() {
         const button = document.getElementById("send-button");
         const originalText = button.innerHTML;
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+        button.innerHTML = "Sending...";
         button.disabled = true;
 
         const params = {
@@ -37,8 +36,9 @@
         };
 
         emailjs.send("service_2a7jixl", "template_ps82jt3", params).then(
-          function () {
-            button.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+          function (response) {
+            alert("Email sent successfully!");
+            button.innerHTML = "Message Sent ✔";
             setTimeout(() => {
               button.innerHTML = originalText;
               button.disabled = false;
@@ -47,6 +47,7 @@
           },
           function (error) {
             alert("Failed to send email. Please try again.");
+            console.error("FAILED...", error);
             button.innerHTML = originalText;
             button.disabled = false;
           },
@@ -55,538 +56,268 @@
     </script>
   </head>
   <body>
-    <!-- Animated background -->
-    <div class="bg-grid"></div>
-    <div class="bg-glow glow-1"></div>
-    <div class="bg-glow glow-2"></div>
-    <div class="bg-glow glow-3"></div>
-
-    <!-- Header -->
-    <header id="header">
-      <div class="header-inner">
-        <a href="#hero" class="logo">PW<span class="dot">.</span></a>
-        <nav>
-          <ul>
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#skills" class="nav-link">Skills</a></li>
-            <li><a href="#projects" class="nav-link">Projects</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
-          </ul>
-        </nav>
-        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-      <div class="mobile-nav" id="mobile-nav">
+    <header>
+      <nav>
         <ul>
-          <li><a href="#about" class="mobile-link">About</a></li>
-          <li><a href="#skills" class="mobile-link">Skills</a></li>
-          <li><a href="#projects" class="mobile-link">Projects</a></li>
-          <li><a href="#contact" class="mobile-link">Contact</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
-      </div>
+      </nav>
     </header>
 
-    <!-- Hero -->
     <section id="hero">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span class="badge-dot"></span>
-          Available for Opportunities
-        </div>
-        <h1 class="hero-title">
-          <span class="line">Prabal</span>
-          <span class="line accent">Wadhwa</span>
-        </h1>
-        <p class="hero-subtitle">React JS &amp; React Native Developer</p>
-        <p class="hero-desc">
-          Crafting responsive, performant web &amp; mobile experiences with
-          modern JavaScript.
-        </p>
-        <div class="hero-cta">
-          <a href="#projects" class="btn btn-primary"
-            >View Work <i class="fas fa-arrow-right"></i
-          ></a>
-          <a href="#contact" class="btn btn-ghost">Let's Talk</a>
-        </div>
+      <div class="hero-icons">
+        <div class="blur-circle"></div>
+        <img src="icons/react.svg" alt="React" class="rotating-icon" />
+        <img src="icons/github.svg" alt="GitHub" class="rotating-icon" />
+        <img
+          src="icons/reactNative.svg"
+          alt="React Native"
+          class="rotating-icon"
+        />
+        <img src="icons/html.svg" alt="HTML" class="rotating-icon" />
+        <img src="icons/css.svg" alt="CSS" class="rotating-icon" />
+        <img src="icons/c.svg" alt="C" class="rotating-icon" />
       </div>
-      <div class="hero-visual">
-        <div class="orbit-container">
-          <!-- Decorative rings (no icons inside) -->
-          <div class="orbit-ring ring-1"></div>
-          <div class="orbit-ring ring-2"></div>
-
-          <!-- Ring 1 icons — all absolutely centered, animated individually -->
-          <div class="orbit-icon ri1 i1">
-            <img src="icons/react.svg" alt="React" />
-          </div>
-          <div class="orbit-icon ri1 i2">
-            <img src="icons/html.svg" alt="HTML" />
-          </div>
-          <div class="orbit-icon ri1 i3">
-            <img src="icons/css.svg" alt="CSS" />
-          </div>
-          <div class="orbit-icon ri1 i4">
-            <img src="icons/github.svg" alt="GitHub" />
-          </div>
-
-          <!-- Ring 2 icons -->
-          <div class="orbit-icon ri2 i5">
-            <img src="icons/reactNative.svg" alt="React Native" />
-          </div>
-          <div class="orbit-icon ri2 i6"><img src="icons/c.svg" alt="C" /></div>
-          <div class="orbit-icon ri2 i7">
-            <img src="icons/redux.svg" alt="C" />
-          </div>
-          <div class="orbit-icon ri2 i8">
-            <img src="icons/next.svg" alt="C" />
-          </div>
-
-          <!-- Core -->
-          <div class="orbit-core"><span>PW</span></div>
-        </div>
-      </div>
-      <a href="#about" class="scroll-indicator">
-        <span>Scroll</span>
-        <i class="fas fa-chevron-down"></i>
-      </a>
+      <h1 class="hero-title">Prabal Wadhwa</h1>
+      <p class="hero-subtitle">React JS & React Native Developer</p>
+      <a href="#about" class="scroll-down">↓</a>
     </section>
 
-    <!-- About -->
     <section id="about">
       <div class="container">
-        <div class="section-label">01 — About</div>
-        <h2 class="section-title">Who I Am</h2>
-        <div class="about-grid">
-          <div class="about-text">
-            <p>
-              I'm a passionate and self-driven
-              <strong>Frontend Developer</strong> currently working at
-              <strong>Syncglob Pvt Ltd</strong> in Shri Ganganagar, Rajasthan,
-              since <strong>November 2024</strong>.
-            </p>
-            <p>
-              I build real-world web and mobile applications using
-              <strong>React.js</strong> and <strong>React Native</strong>, while
-              pursuing my <strong>BCA from MGSU</strong>.
-            </p>
-            <p>
-              My strengths lie in building responsive UI, clean code, and
-              solving frontend challenges. Always keen to learn and grow.
-            </p>
-          </div>
-          <div class="about-stats">
-            <div class="stat-card">
-              <span class="stat-number">1+</span>
-              <span class="stat-label">Years Experience</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-number">5+</span>
-              <span class="stat-label">Projects Built</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-number">20+</span>
-              <span class="stat-label">Skills</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-number">∞</span>
-              <span class="stat-label">Passion for Code</span>
-            </div>
-          </div>
+        <h2>About Me</h2>
+        <p>
+          I'm a passionate and self-driven Frontend Developer currently working
+          at <strong>Syncglob Pvt Ltd</strong> in
+          <strong>Shri Ganganagar, Rajasthan</strong>. I joined the company in
+          <strong>November 2024</strong> and have been actively contributing to
+          real-world web and mobile applications using modern technologies like
+          <strong>React.js</strong> and <strong>React Native</strong>.
+        </p>
+        <p>
+          Alongside my professional journey, I am pursuing a
+          <strong>Bachelor of Computer Applications (BCA)</strong> from
+          <strong>Maharaja Ganga Singh University (MGSU)</strong>. Balancing
+          education and industry work has sharpened my practical knowledge, and
+          I'm always keen to learn and grow as a developer.
+        </p>
+        <p>
+          My strengths lie in building responsive UI, clean code, and solving
+          frontend challenges. I'm excited to take on bigger roles and
+          collaborative projects in the near future.
+        </p>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <h2>Skills</h2>
+      <ul class="skills-list">
+        <li>React JS</li>
+        <li>React Native</li>
+        <li>Redux</li>
+        <li>JavaScript (ES6+)</li>
+        <li>TypeScript</li>
+        <li>JavaScript (ES6+)</li>
+        <li>React</li>
+        <li>React Native</li>
+        <li>Redux</li>
+        <li>RTK Query</li>
+        <li>React Hook Form</li>
+        <li>REST API Integration</li>
+        <li>Axios / Fetch API</li>
+        <li>React Navigation</li>
+        <li>State Management</li>
+        <li>Component-Based Architecture</li>
+        <li>Responsive Design</li>
+        <li>UI/UX Design</li>
+        <li>Material UI</li>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Git</li>
+        <li>GitHub</li>
+        <li>Debugging</li>
+        <li>Performance Optimization</li>
+        <li>Mobile App Development</li>
+      </ul>
+    </section>
+
+    <section id="projects" class="section">
+      <h2 class="section-title">Projects</h2>
+      <div class="project-card">
+        <div class="project-image">
+          <img src="projects/healthBuddy.png" alt="Uncurl Health Project" />
+        </div>
+        <div class="project-content">
+          <h3 class="project-heading-health">Uncurl Health</h3>
+          <p>
+            Uncurl: health is a one-of-a-kind health application that takes a
+            holistic approach to your well-being. It evaluates your health based
+            on self-reported symptoms, hospital records, test reports, and
+            medications. Additionally, it considers genetic risks and lifestyle
+            choices such as diet, exercise, and habits.
+          </p>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.livingscopehealth.uncurl&pcampaignid=web_share"
+            class="visit-btn-health"
+            >Check Now</a
+          >
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-image">
+          <img src="projects/onion.png" alt="Onion AI" />
+        </div>
+        <div class="project-content">
+          <h3 class="project-heading-onion">Onion AI</h3>
+          <p>
+            OnionAI is an AI-powered health education platform that helps users
+            understand complex medical information through a conversational
+            interface. It provides simplified explanations of medical terms,
+            symptom insights, and reliable health resources to support informed
+            health decisions.
+          </p>
+          <a href="https://onionai.app/" class="visit-btn-onion">Check Now</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-image">
+          <img src="projects/vital.png" alt="Vital Hero" />
+        </div>
+        <div class="project-content">
+          <h3 class="project-heading-vital">Vital Hero</h3>
+          <p>
+            VitalHero is a health and fitness mobile app that promotes healthy
+            lifestyles through personalized programs, activity tracking, and
+            gamified challenges. It connects users’ daily health activities with
+            social and environmental initiatives to create a positive impact.
+          </p>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.gesundheitsheld.mobile&pcampaignid=web_share"
+            class="visit-btn-vital"
+            >Check Now</a
+          >
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-image">
+          <img src="projects/construction.png" alt="Job Sites" />
+        </div>
+        <div class="project-content">
+          <h3 class="project-heading-construction">Job Sites</h3>
+          <p>
+            A web-based platform designed to manage construction site operations
+            with role-based access control. Multiple users such as Welder,
+            Detailer, Estimator, and Fabrication Shop teams can access and
+            manage the same project with permissions specific to their roles.
+            The system helps coordinate tasks, track project progress, and
+            streamline collaboration between different departments.
+          </p>
+          <a
+            href="https://con.viqgroup.com/auth/login"
+            class="visit-btn-construction"
+            >Check Now</a
+          >
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-image">
+          <img src="projects/myBildr.png" alt="MyBildR" />
+        </div>
+        <div class="project-content">
+          <h3 class="project-heading-myBildR">MyBildR</h3>
+          <p>
+            myBildR is a human resource management platform that helps manage
+            multiple projects by streamlining workforce allocation, attendance,
+            and real-time project tracking for construction and infrastructure
+            teams.
+          </p>
+          <a href="https://mybildr.com/#/auth/login" class="visit-btn-myBildR"
+            >Check Now</a
+          >
         </div>
       </div>
     </section>
 
-    <!-- Skills -->
-    <section id="skills">
-      <div class="container">
-        <div class="section-label">02 — Skills</div>
-        <h2 class="section-title">Tech Stack</h2>
-        <div class="skills-categories">
-          <div class="skill-group">
-            <h3 class="skill-group-title">
-              <i class="fas fa-code"></i> Frontend
-            </h3>
-            <div class="skill-tags">
-              <span class="tag">React JS</span>
-              <span class="tag">React Native</span>
-              <span class="tag">Next JS</span>
-              <span class="tag">TypeScript</span>
-              <span class="tag">JavaScript (ES6+)</span>
-              <span class="tag">HTML5</span>
-              <span class="tag">CSS3</span>
-              <span class="tag">Material UI</span>
-              <span class="tag">Responsive Design</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <h3 class="skill-group-title">
-              <i class="fas fa-layer-group"></i> State & Data
-            </h3>
-            <div class="skill-tags">
-              <span class="tag">Redux</span>
-              <span class="tag">RTK Query</span>
-              <span class="tag">React Hook Form</span>
-              <span class="tag">State Management</span>
-              <span class="tag">REST API Integration</span>
-              <span class="tag">Axios / Fetch API</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <h3 class="skill-group-title">
-              <i class="fas fa-mobile-alt"></i> Mobile & Tools
-            </h3>
-            <div class="skill-tags">
-              <span class="tag">Expo Go</span>
-              <span class="tag">React Navigation</span>
-              <span class="tag">Mobile App Dev</span>
-              <span class="tag">Component Architecture</span>
-              <span class="tag">Git / GitHub</span>
-              <span class="tag">Debugging</span>
-              <span class="tag">Performance Optimization</span>
-              <span class="tag">UI/UX Design</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section id="contact" class="section">
+      <h2>Contact Me</h2>
+      <p>
+        If you'd like to connect, have questions, or want to work together, feel
+        free to send a message.
+      </p>
+      <form id="contact-form" action="javascript:void(0);">
+        <input
+          type="text"
+          id="title"
+          name="title"
+          placeholder="Subject"
+          required
+        />
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Your Name"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Your Email"
+          required
+        />
+        <textarea
+          name="message"
+          id="message"
+          placeholder="Your Message"
+          required
+        ></textarea>
+        <button type="submit" id="send-button" onclick="sendMail()">
+          Send Message
+        </button>
+      </form>
 
-    <!-- Projects -->
-    <section id="projects">
-      <div class="container">
-        <div class="section-label">03 — Work</div>
-        <h2 class="section-title">Projects</h2>
-        <div class="projects-grid">
-          <div class="project-card" data-color="#d1007f">
-            <div class="project-image">
-              <img
-                src="projects/healthBuddy.png"
-                alt="Uncurl Health"
-                loading="lazy"
-              />
-              <div class="project-overlay">
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.livingscopehealth.uncurl&pcampaignid=web_share"
-                  class="overlay-btn"
-                  target="_blank"
-                  >View Project <i class="fas fa-external-link-alt"></i
-                ></a>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-meta">
-                <span class="project-type">Mobile App</span>
-                <span class="project-tech">React Native</span>
-              </div>
-              <h3 class="project-title" style="--accent: #d1007f">
-                Uncurl Health
-              </h3>
-              <p class="project-desc">
-                A holistic health app evaluating well-being from symptoms,
-                hospital records, test reports, medications, genetic risks, and
-                lifestyle choices.
-              </p>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.livingscopehealth.uncurl&pcampaignid=web_share"
-                class="project-link"
-                style="--accent: #d1007f"
-                target="_blank"
-              >
-                Check Now <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      />
 
-          <div class="project-card" data-color="#2fb7a4">
-            <div class="project-image">
-              <img src="projects/onion.png" alt="Onion AI" loading="lazy" />
-              <div class="project-overlay">
-                <a
-                  href="https://onionai.app/"
-                  class="overlay-btn"
-                  target="_blank"
-                  >View Project <i class="fas fa-external-link-alt"></i
-                ></a>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-meta">
-                <span class="project-type">Mobile App</span>
-                <span class="project-tech">React Native</span>
-              </div>
-              <h3 class="project-title" style="--accent: #2fb7a4">Onion AI</h3>
-              <p class="project-desc">
-                AI-powered health education platform providing conversational
-                explanations of medical terms, symptom insights, and reliable
-                health resources.
-              </p>
-              <a
-                href="https://onionai.app/"
-                class="project-link"
-                style="--accent: #2fb7a4"
-                target="_blank"
-              >
-                Check Now <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-
-          <div class="project-card" data-color="#89c145">
-            <div class="project-image">
-              <img src="projects/vital.png" alt="Vital Hero" loading="lazy" />
-              <div class="project-overlay">
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.gesundheitsheld.mobile&pcampaignid=web_share"
-                  class="overlay-btn"
-                  target="_blank"
-                  >View Project <i class="fas fa-external-link-alt"></i
-                ></a>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-meta">
-                <span class="project-type">Mobile App</span>
-                <span class="project-tech">React Native</span>
-              </div>
-              <h3 class="project-title" style="--accent: #89c145">
-                Vital Hero
-              </h3>
-              <p class="project-desc">
-                Health and fitness app promoting healthy lifestyles through
-                personalized programs, activity tracking, and gamified
-                challenges with social impact.
-              </p>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.gesundheitsheld.mobile&pcampaignid=web_share"
-                class="project-link"
-                style="--accent: #89c145"
-                target="_blank"
-              >
-                Check Now <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-
-          <div class="project-card" data-color="#737fcb">
-            <div class="project-image">
-              <img
-                src="projects/construction.png"
-                alt="Job Sites"
-                loading="lazy"
-              />
-              <div class="project-overlay">
-                <a
-                  href="https://con.viqgroup.com/auth/login"
-                  class="overlay-btn"
-                  target="_blank"
-                  >View Project <i class="fas fa-external-link-alt"></i
-                ></a>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-meta">
-                <span class="project-type">Web Platform</span>
-                <span class="project-tech">React JS</span>
-                <span class="project-tech">React Native</span>
-                <span class="project-tech">Mobile App</span>
-              </div>
-              <h3 class="project-title" style="--accent: #737fcb">Job Sites</h3>
-              <p class="project-desc">
-                Web-based platform managing construction site operations with
-                role-based access control for Welders, Detailers, Estimators,
-                and Fabrication teams.
-              </p>
-              <a
-                href="https://con.viqgroup.com/auth/login"
-                class="project-link"
-                style="--accent: #737fcb"
-                target="_blank"
-              >
-                Check Now <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-
-          <div class="project-card" data-color="#3254a8">
-            <div class="project-image">
-              <img src="projects/myBildr.png" alt="MyBildR" loading="lazy" />
-              <div class="project-overlay">
-                <a
-                  href="https://mybildr.com/#/auth/login"
-                  class="overlay-btn"
-                  target="_blank"
-                  >View Project <i class="fas fa-external-link-alt"></i
-                ></a>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-meta">
-                <span class="project-type">Web Platform</span>
-                <span class="project-tech">React JS</span>
-              </div>
-              <h3 class="project-title" style="--accent: #3254a8">MyBildR</h3>
-              <p class="project-desc">
-                HR management platform streamlining workforce allocation,
-                attendance tracking, and real-time project management for
-                construction and infrastructure teams.
-              </p>
-              <a
-                href="https://mybildr.com/#/auth/login"
-                class="project-link"
-                style="--accent: #3254a8"
-                target="_blank"
-              >
-                Check Now <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact">
-      <div class="container">
-        <div class="section-label">04 — Contact</div>
-        <h2 class="section-title">Let's Work Together</h2>
-        <div class="contact-grid">
-          <div class="contact-info">
-            <p class="contact-intro">
-              Have a project in mind or want to collaborate? I'd love to hear
-              from you. Send a message and I'll get back as soon as possible.
-            </p>
-            <div class="contact-links">
-              <a href="mailto:prabalwadhwa001@gmail.com" class="contact-item">
-                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                <div>
-                  <span class="contact-label">Email</span>
-                  <span class="contact-value">prabalwadhwa001@gmail.com</span>
-                </div>
-              </a>
-              <a
-                href="https://github.com/prabal-wadhwa"
-                target="_blank"
-                rel="noopener"
-                class="contact-item"
-              >
-                <div class="contact-icon"><i class="fab fa-github"></i></div>
-                <div>
-                  <span class="contact-label">GitHub</span>
-                  <span class="contact-value">prabal-wadhwa</span>
-                </div>
-              </a>
-              <a
-                href="https://linkedin.com/in/prabal-wadhwa"
-                target="_blank"
-                rel="noopener"
-                class="contact-item"
-              >
-                <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
-                <div>
-                  <span class="contact-label">LinkedIn</span>
-                  <span class="contact-value">prabal-wadhwa</span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <form id="contact-form" action="javascript:void(0);">
-            <div class="form-group">
-              <input
-                type="text"
-                id="title"
-                name="title"
-                placeholder="Subject"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <input
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Your Name"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Your Email"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <textarea
-                name="message"
-                id="message"
-                placeholder="Your Message"
-                required
-                rows="5"
-              ></textarea>
-            </div>
-            <button type="submit" id="send-button" onclick="sendMail()">
-              Send Message <i class="fas fa-paper-plane"></i>
-            </button>
-          </form>
-        </div>
+      <div class="social-links">
+        <h3>Let's Connect</h3>
+        <ul>
+          <li>
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:prabalwadhwa001@gmail.com"
+              >prabalwadhwa001@gmail.com</a
+            >
+          </li>
+          <li>
+            <i class="fab fa-github"></i>
+            <a
+              href="https://github.com/prabal-wadhwa"
+              target="_blank"
+              rel="noopener"
+              >prabal-wadhwa</a
+            >
+          </li>
+          <li>
+            <i class="fab fa-linkedin"></i>
+            <a
+              href="https://linkedin.com/in/prabal-wadhwa"
+              target="_blank"
+              rel="noopener"
+              >prabal-wadhwa</a
+            >
+          </li>
+        </ul>
       </div>
     </section>
 
     <footer>
-      <div class="footer-inner">
-        <span class="logo">PW<span class="dot">.</span></span>
-        <p>&copy; 2025 Prabal Wadhwa. All rights reserved.</p>
-        <div class="footer-links">
-          <a href="https://github.com/prabal-wadhwa" target="_blank"
-            ><i class="fab fa-github"></i
-          ></a>
-          <a href="https://linkedin.com/in/prabal-wadhwa" target="_blank"
-            ><i class="fab fa-linkedin"></i
-          ></a>
-          <a href="mailto:prabalwadhwa001@gmail.com"
-            ><i class="fas fa-envelope"></i
-          ></a>
-        </div>
-      </div>
+      <p>&copy; 2025 Prabal Wadhwa. All rights reserved.</p>
     </footer>
-
-    <script>
-      // Hamburger menu
-      const hamburger = document.getElementById("hamburger");
-      const mobileNav = document.getElementById("mobile-nav");
-      hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("open");
-        mobileNav.classList.toggle("open");
-      });
-      document.querySelectorAll(".mobile-link").forEach((link) => {
-        link.addEventListener("click", () => {
-          hamburger.classList.remove("open");
-          mobileNav.classList.remove("open");
-        });
-      });
-
-      // Header scroll effect
-      const header = document.getElementById("header");
-      window.addEventListener("scroll", () => {
-        header.classList.toggle("scrolled", window.scrollY > 50);
-      });
-
-      // Intersection observer for fade-in
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) e.target.classList.add("visible");
-          });
-        },
-        { threshold: 0.1 },
-      );
-      document
-        .querySelectorAll(
-          ".project-card, .stat-card, .skill-group, .about-text, .contact-info, #contact-form",
-        )
-        .forEach((el) => observer.observe(el));
-    </script>
   </body>
 </html>
