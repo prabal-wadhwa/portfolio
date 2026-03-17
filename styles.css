@@ -515,12 +515,11 @@ nav ul {
 }
 .orbit-icon.ri2.i8 {
   animation: orbit-icon-rev var(--dur) linear infinite;
-  animation-delay: -7s;
+  animation-delay: -21s;
 }
 .orbit-icon.ri2.i8 img {
-  animation-delay: -7s;
+  animation-delay: -21s;
 }
-
 .scroll-indicator {
   position: absolute;
   bottom: 2rem;
