@@ -540,9 +540,6 @@ nav ul {
   color: var(--accent);
 }
 
-/* =============================
-   SECTIONS COMMON
-   ============================= */
 section {
   position: relative;
   z-index: 1;
