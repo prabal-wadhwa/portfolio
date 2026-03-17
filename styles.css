@@ -98,9 +98,10 @@ body {
 }
 
 #header.scrolled .header-inner {
-  background: rgba(10, 10, 15, 0.9);
+  background: rgba(10, 10, 15, 0.95);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -190,9 +191,10 @@ nav ul {
 .mobile-nav {
   max-height: 0;
   overflow: hidden;
-  background: rgba(10, 10, 15, 0.97);
+  background: rgba(10, 10, 15, 0.98);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   transition: max-height 0.4s ease;
 }
 .mobile-nav.open {
@@ -259,6 +261,7 @@ nav ul {
   background: #6c63ff;
   box-shadow: 0 0 8px #6c63ff;
   animation: pulse 2s infinite;
+  flex-shrink: 0;
 }
 
 .hero-title {
@@ -295,6 +298,7 @@ nav ul {
   background: rgba(108, 99, 255, 0.07);
   border: 1px solid rgba(108, 99, 255, 0.15);
   border-radius: 100px;
+  width: -webkit-fit-content;
   width: fit-content;
 }
 
@@ -346,7 +350,9 @@ nav ul {
   color: var(--accent);
 }
 
-/* Hero Visual / Orbit — proper transform-based system */
+/* =============================
+   ORBIT — FIXED TRANSFORM-BASED
+   ============================= */
 .hero-visual {
   flex: 0 0 380px;
   display: flex;
@@ -383,7 +389,7 @@ nav ul {
   z-index: 10;
 }
 
-/* Rings — purely decorative circles */
+/* Decorative rings — static, no animation */
 .orbit-ring {
   position: absolute;
   top: 50%;
@@ -391,57 +397,66 @@ nav ul {
   border-radius: 50%;
   border: 1px dashed rgba(108, 99, 255, 0.2);
   pointer-events: none;
+  transform: translate(-50%, -50%);
 }
 .ring-1 {
   width: 220px;
   height: 220px;
-  transform: translate(-50%, -50%);
 }
 .ring-2 {
   width: 320px;
   height: 320px;
-  transform: translate(-50%, -50%);
 }
 
-/* Each icon orbits using: translate to radius + rotate on parent wrapper */
+/* Base orbit icon — all centered at origin */
 .orbit-icon {
   position: absolute;
   top: 50%;
   left: 50%;
+  /* offset by half size so center is at container center */
   width: 48px;
   height: 48px;
-  margin: -24px 0 0 -24px;
+  margin-top: -24px;
+  margin-left: -24px;
   background: var(--bg-card);
-  border: 1px solid rgba(108, 99, 255, 0.25);
+  border: 1px solid rgba(108, 99, 255, 0.3);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Constrain padding so img never overflows */
   padding: 10px;
-  animation: orbit-icon linear infinite;
   z-index: 5;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   transition:
     border-color 0.3s ease,
     box-shadow 0.3s ease;
+  /* overflow hidden prevents any SVG bleed */
+  overflow: hidden;
 }
 .orbit-icon:hover {
   border-color: var(--accent);
-  box-shadow: 0 0 20px rgba(108, 99, 255, 0.4);
+  box-shadow: 0 0 20px rgba(108, 99, 255, 0.5);
 }
 
-/* Counter-rotate the image so it stays upright */
+/* CRITICAL: Hard-constrain all images inside orbit icons */
 .orbit-icon img {
-  width: 100%;
-  height: 100%;
+  display: block;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 0;
+  min-height: 0;
+  max-width: 28px;
+  max-height: 28px;
   object-fit: contain;
-  animation: counter-rotate linear infinite;
+  flex-shrink: 0;
+  /* counter-rotate set per ring below */
 }
 .orbit-icon:hover img {
-  filter: brightness(1.3) drop-shadow(0 0 6px rgba(108, 99, 255, 0.6));
+  filter: brightness(1.3) drop-shadow(0 0 4px rgba(108, 99, 255, 0.7));
 }
 
-/* --- Ring 1 icons (radius = 110px, 18s forward) --- */
+/* ---- Ring 1: radius 110px, 18s clockwise ---- */
 .orbit-icon.ri1 {
   --r: 110px;
   --dur: 18s;
@@ -451,7 +466,7 @@ nav ul {
 }
 
 .orbit-icon.ri1.i1 {
-  animation: orbit-icon var(--dur) linear infinite;
+  animation: orbit-cw var(--dur) linear infinite;
   animation-delay: 0s;
 }
 .orbit-icon.ri1.i1 img {
@@ -459,7 +474,7 @@ nav ul {
 }
 
 .orbit-icon.ri1.i2 {
-  animation: orbit-icon var(--dur) linear infinite;
+  animation: orbit-cw var(--dur) linear infinite;
   animation-delay: -4.5s;
 }
 .orbit-icon.ri1.i2 img {
@@ -467,7 +482,7 @@ nav ul {
 }
 
 .orbit-icon.ri1.i3 {
-  animation: orbit-icon var(--dur) linear infinite;
+  animation: orbit-cw var(--dur) linear infinite;
   animation-delay: -9s;
 }
 .orbit-icon.ri1.i3 img {
@@ -475,14 +490,14 @@ nav ul {
 }
 
 .orbit-icon.ri1.i4 {
-  animation: orbit-icon var(--dur) linear infinite;
+  animation: orbit-cw var(--dur) linear infinite;
   animation-delay: -13.5s;
 }
 .orbit-icon.ri1.i4 img {
   animation-delay: -13.5s;
 }
 
-/* --- Ring 2 icons (radius = 160px, 28s reverse) --- */
+/* ---- Ring 2: radius 160px, 28s counter-clockwise ---- */
 .orbit-icon.ri2 {
   --r: 160px;
   --dur: 28s;
@@ -492,7 +507,7 @@ nav ul {
 }
 
 .orbit-icon.ri2.i5 {
-  animation: orbit-icon-rev var(--dur) linear infinite;
+  animation: orbit-ccw var(--dur) linear infinite;
   animation-delay: 0s;
 }
 .orbit-icon.ri2.i5 img {
@@ -500,27 +515,30 @@ nav ul {
 }
 
 .orbit-icon.ri2.i6 {
-  animation: orbit-icon-rev var(--dur) linear infinite;
-  animation-delay: -14s;
+  animation: orbit-ccw var(--dur) linear infinite;
+  animation-delay: -7s;
 }
 .orbit-icon.ri2.i6 img {
+  animation-delay: -7s;
+}
+
+.orbit-icon.ri2.i7 {
+  animation: orbit-ccw var(--dur) linear infinite;
   animation-delay: -14s;
 }
+.orbit-icon.ri2.i7 img {
+  animation-delay: -14s;
+}
+
 .orbit-icon.ri2.i8 {
-  animation: orbit-icon-rev var(--dur) linear infinite;
+  animation: orbit-ccw var(--dur) linear infinite;
   animation-delay: -21s;
 }
 .orbit-icon.ri2.i8 img {
   animation-delay: -21s;
 }
-.orbit-icon.ri2.i7 {
-  animation: orbit-icon-rev var(--dur) linear infinite;
-  animation-delay: -7s;
-}
-.orbit-icon.ri2.i7 img {
-  animation-delay: -7s;
-}
 
+/* Scroll indicator */
 .scroll-indicator {
   position: absolute;
   bottom: 2rem;
@@ -717,7 +735,7 @@ section {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
 
@@ -754,6 +772,9 @@ section {
   object-fit: cover;
   object-position: top;
   transition: transform 0.5s ease;
+  /* reset any forced sizing from orbit */
+  max-width: none !important;
+  max-height: none !important;
 }
 .project-card:hover .project-image img {
   transform: scale(1.05);
@@ -762,7 +783,7 @@ section {
 .project-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(10, 10, 15, 0.8);
+  background: rgba(10, 10, 15, 0.82);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -832,7 +853,6 @@ section {
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 0.7rem;
-  color: var(--accent, white);
 }
 
 .project-desc {
@@ -850,8 +870,8 @@ section {
   font-weight: 600;
   font-size: 0.9rem;
   text-decoration: none;
-  color: var(--accent);
   transition: var(--transition);
+  width: -webkit-fit-content;
   width: fit-content;
   margin-top: auto;
 }
@@ -1026,6 +1046,7 @@ footer p {
   color: var(--text-muted);
   font-size: 1.1rem;
   transition: var(--transition);
+  text-decoration: none;
 }
 .footer-links a:hover {
   color: var(--accent);
@@ -1033,11 +1054,11 @@ footer p {
 }
 
 /* =============================
-   ANIMATIONS
+   KEYFRAME ANIMATIONS
    ============================= */
 
-/* Orbit: rotate the icon around the center */
-@keyframes orbit-icon {
+/* Clockwise orbit: rotate wrapper, icon moves outward by --r */
+@keyframes orbit-cw {
   from {
     transform: rotate(0deg) translateX(var(--r));
   }
@@ -1045,7 +1066,9 @@ footer p {
     transform: rotate(360deg) translateX(var(--r));
   }
 }
-@keyframes orbit-icon-rev {
+
+/* Counter-clockwise orbit */
+@keyframes orbit-ccw {
   from {
     transform: rotate(0deg) translateX(var(--r));
   }
@@ -1054,7 +1077,7 @@ footer p {
   }
 }
 
-/* Counter-rotate: keep image upright while orbiting */
+/* Keep image upright while icon orbits clockwise */
 @keyframes counter-rotate {
   from {
     transform: rotate(0deg);
@@ -1063,6 +1086,8 @@ footer p {
     transform: rotate(-360deg);
   }
 }
+
+/* Keep image upright while icon orbits counter-clockwise */
 @keyframes counter-rotate-rev {
   from {
     transform: rotate(0deg);
@@ -1082,6 +1107,7 @@ footer p {
     transform: translateY(0);
   }
 }
+
 @keyframes pulse {
   0%,
   100% {
@@ -1093,6 +1119,7 @@ footer p {
       0 0 24px #6c63ff;
   }
 }
+
 @keyframes bounce {
   0%,
   100% {
@@ -1103,25 +1130,25 @@ footer p {
   }
 }
 
-/* Staggered card animation */
+/* Staggered project card reveal */
 .project-card:nth-child(1) {
-  transition-delay: 0.1s;
+  transition-delay: 0.05s;
 }
 .project-card:nth-child(2) {
-  transition-delay: 0.15s;
+  transition-delay: 0.1s;
 }
 .project-card:nth-child(3) {
-  transition-delay: 0.2s;
+  transition-delay: 0.15s;
 }
 .project-card:nth-child(4) {
-  transition-delay: 0.25s;
+  transition-delay: 0.2s;
 }
 .project-card:nth-child(5) {
-  transition-delay: 0.3s;
+  transition-delay: 0.25s;
 }
 
 /* =============================
-   RESPONSIVE
+   RESPONSIVE — TABLET (≤900px)
    ============================= */
 @media (max-width: 900px) {
   nav {
@@ -1136,6 +1163,7 @@ footer p {
     text-align: center;
     padding: 7rem 1.5rem 3rem;
     gap: 2.5rem;
+    min-height: auto;
   }
   .hero-content {
     max-width: 100%;
@@ -1146,7 +1174,13 @@ footer p {
   .hero-cta {
     justify-content: center;
   }
+  .hero-subtitle {
+    margin: 0 auto 1.2rem;
+  }
 
+  .hero-visual {
+    flex: 0 0 auto;
+  }
   .orbit-container {
     width: 260px;
     height: 260px;
@@ -1180,10 +1214,13 @@ footer p {
     gap: 2.5rem;
   }
   .projects-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
+/* =============================
+   RESPONSIVE — MOBILE (≤600px)
+   ============================= */
 @media (max-width: 600px) {
   .container {
     padding: 4rem 1.2rem;
@@ -1191,6 +1228,7 @@ footer p {
   .header-inner {
     padding: 1rem 1.2rem;
   }
+
   .hero-title {
     letter-spacing: -1px;
   }
@@ -1200,6 +1238,10 @@ footer p {
 
   .about-stats {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
   }
 
   .project-image {
@@ -1221,6 +1263,7 @@ footer p {
     display: none;
   }
 
+  /* Hide orbit on very small screens to save space */
   .hero-visual {
     display: none;
   }
