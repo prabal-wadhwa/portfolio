@@ -96,6 +96,9 @@ body {
   padding: 0;
   transition: var(--transition);
 }
+#header.scrolled {
+  background: rgba(10, 10, 15, 0.95);
+}
 
 #header.scrolled .header-inner {
   background: rgba(10, 10, 15, 0.95);
